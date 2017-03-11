@@ -1,5 +1,5 @@
 import "core-js";
-import {AuthConfig, AuthHttp, tokenNotExpired, JwtHelper} from "./angular2-auth";
+import {AuthConfig, AuthHttp, tokenNotExpired, AuthHelper} from "./angular2-auth";
 import {Observable} from "rxjs";
 import {encodeTestToken} from "./angular2-auth-test-helpers";
 
@@ -71,27 +71,9 @@ describe('AuthConfig', ()=> {
 
 describe('JwtHelper', ()=> {
     'use strict';
-    let jwtHelper:JwtHelper;
+    let jwtHelper:AuthHelper;
     beforeEach(()=>{
-        jwtHelper=new JwtHelper();
-    });
-    describe('urlBase64Decode',()=>{
-        it('should successfully decode payloads with funny symbols (A Euro symbol in this case) simplified',()=>{
-            const expected="€";
-            const payload="4oKs"
-            const actual:any=jwtHelper.urlBase64Decode(payload);
-            expect(actual).toBe(expected);
-        });
-    });
-    describe('decodeToken',()=>{
-        it('should handle a valid token', ()=> {
-            const payload = {
-                exp: 0
-            };
-            const token = encodeTestToken(payload);
-            const actual = jwtHelper.decodeToken(token);
-            expect(actual).toEqual(payload);
-        });
+        jwtHelper=new AuthHelper();
     });
     describe('getTokenExpirationDate',()=>{
 

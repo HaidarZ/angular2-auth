@@ -16,8 +16,8 @@
         "moduleResolution":"node"
     },
     "files": [
-        "angular2-jwt.ts",
-        "angular2-jwt.spec.ts",
+        "angular2-auth.ts",
+        "angular2-auth.spec.ts",
         "custom.d.ts"
     ],
     "exclude": [

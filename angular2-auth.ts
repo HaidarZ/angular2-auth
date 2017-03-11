@@ -196,7 +196,7 @@ export class AuthHttp {
 }
 
 /**
- * Helper class to decode and find JWT expiration.
+ * Helper class to find token expiration.
  */
 
 export class AuthHelper {

@@ -19,7 +19,6 @@
  - [Checking Authentication to Hide/Show Elements and Handle Routing](#checking-authentication-to-hideshow-elements-and-handle-routing)
  - [Contributing](#contributing)
  - [Development](#development)
- - [Issue Reporting](#issue-reporting)
  - [Author](#author)
  - [License](#license)
 
@@ -343,11 +342,6 @@ Pull requests are welcome!
 ## Development
 
 Use `npm run dev` to compile and watch for changes.
-
-## Issue Reporting
-
-If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
-
 
 ## Author
 [Haidar Zeineddine](http://haidarz.me)
