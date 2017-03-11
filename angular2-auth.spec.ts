@@ -1,7 +1,7 @@
 import "core-js";
-import {AuthConfig, AuthHttp, tokenNotExpired, JwtHelper} from "./angular2-jwt";
+import {AuthConfig, AuthHttp, tokenNotExpired, JwtHelper} from "./angular2-auth";
 import {Observable} from "rxjs";
-import {encodeTestToken} from "./angular2-jwt-test-helpers";
+import {encodeTestToken} from "./angular2-auth-test-helpers";
 
 
 

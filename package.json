@@ -1,10 +1,10 @@
 {
   "name": "angular2-jwt",
   "version": "0.1.28",
-  "description": "Helper library for handling JWTs in Angular 2",
+  "description": "Helper library for handling authentication in Angular 2",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/auth0/angular2-jwt.git"
+    "url": "git+https://github.com/HaidarZ/angular2-auth.git"
   },
   "scripts": {
     "dev": "tsc --watch",
@@ -15,18 +15,17 @@
   "keywords": [
     "angular",
     "angular2",
-    "jwt",
     "authentication"
   ],
-  "author": "ryanchenkie",
+  "author": "Haidar Zeineddine",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/auth0/angular2-jwt/issues"
+    "url": "https://github.com/HaidarZ/angular2-auth.git/issues"
   },
   "main": "angular2-jwt.js",
   "typings": "./angular2-jwt.d.ts",
   "types": "./angular2-jwt.d.ts",
-  "homepage": "https://github.com/auth0/angular2-jwt#readme",
+  "homepage": "https://github.com/HaidarZ/angular2-auth.git#readme",
   "devDependencies": {
     "@angular/common": "^2.4.2",
     "@angular/compiler": "^2.4.2",
