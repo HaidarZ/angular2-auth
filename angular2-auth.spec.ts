@@ -11,7 +11,7 @@ describe('AuthConfig', () => {
         expect(config).toBeDefined();
         expect(config.headerName).toBe("Authorization");
         expect(config.headerPrefix).toBe("Bearer ");
-        expect(config.tokenName).toBe("id_token");
+        expect(config.tokenName).toBe("access_token");
         expect(config.noJwtError).toBe(false);
         expect(config.noTokenScheme).toBe(false);
         expect(config.globalHeaders).toEqual([]);
@@ -27,7 +27,7 @@ describe('AuthConfig', () => {
             headerPrefix: "Bar",
             tokenName: "token",
             tokenGetter: () => "this is a token",
-            noJwtError: true,
+            expiryDateGetter: () => "1234",
             globalHeaders: [{ "header": "value" }, { "header2": "value2" }],
             noTokenScheme: true
         };
@@ -36,7 +36,6 @@ describe('AuthConfig', () => {
         expect(config.headerName).toBe(configExpected.headerName);
         expect(config.headerPrefix).toBe(configExpected.headerPrefix + " ");
         expect(config.tokenName).toBe(configExpected.tokenName);
-        expect(config.noJwtError).toBe(configExpected.noJwtError);
         expect(config.noTokenScheme).toBe(configExpected.noTokenScheme);
         expect(config.globalHeaders).toEqual(configExpected.globalHeaders);
         expect(config.tokenGetter).toBeDefined();
