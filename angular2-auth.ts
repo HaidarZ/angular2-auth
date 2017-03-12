@@ -21,7 +21,9 @@ export interface IAuthConfig {
   noClientCheck: boolean;
   noTokenScheme?: boolean;
   tokenGetter: () => string | Promise<string>;
+  expiryDateGetter: () => string | Promise<string>;
   tokenName: string;
+  expiryDateName : string;
 }
 
 export interface IAuthConfigOptional {
@@ -37,6 +39,7 @@ export interface IAuthConfigOptional {
 
 export class AuthConfigConsts {
     public static DEFAULT_TOKEN_NAME = 'access_token';
+    public static DEFAULT_EXPIRY_NAME = 'expires_in';
     public static DEFAULT_HEADER_NAME = 'Authorization';
     public static HEADER_PREFIX_BEARER = 'Bearer ';
 }
@@ -45,7 +48,9 @@ const AuthConfigDefaults: IAuthConfig = {
     headerName: AuthConfigConsts.DEFAULT_HEADER_NAME,
     headerPrefix: null,
     tokenName: AuthConfigConsts.DEFAULT_TOKEN_NAME,
+    expiryDateName : AuthConfigConsts.DEFAULT_EXPIRY_NAME,
     tokenGetter: () => localStorage.getItem(AuthConfigDefaults.tokenName) as string,
+    expiryDateGetter: () => localStorage.getItem(AuthConfigDefaults.expiryDateName) as string,
     noJwtError: false,
     noClientCheck: false,
     globalHeaders: [],
@@ -196,27 +201,13 @@ export class AuthHttp {
 }
 
 /**
- * Helper class to find token expiration.
+ * Helper class to decode and find token expiration.
  */
 
 export class AuthHelper {
 
-  public getTokenExpirationDate(token: string): Date {
-    let decoded: any;
-    decoded = this.decodeToken(token);
-
-    if (!decoded.hasOwnProperty('exp')) {
-      return null;
-    }
-
-    let date = new Date(0); // The 0 here is the key, which sets the date to the epoch
-    date.setUTCSeconds(decoded.exp);
-
-    return date;
-  }
-
-  public isTokenExpired(token: string, offsetSeconds?: number): boolean {
-    let date = this.getTokenExpirationDate(token);
+  public isTokenExpired(offsetSeconds?: number): boolean {
+    let date = Number(localStorage.getItem(AuthConfigConsts.DEFAULT_EXPIRY_NAME));
     offsetSeconds = offsetSeconds || 0;
 
     if (date == null) {
@@ -232,13 +223,13 @@ export class AuthHelper {
  * Checks for presence of token and that token hasn't expired.
  * For use with the @CanActivate router decorator and NgIf
  */
-export function tokenNotExpired(tokenName = AuthConfigConsts.DEFAULT_TOKEN_NAME, jwt?:string): boolean {
+export function tokenNotExpired(tokenName = AuthConfigConsts.DEFAULT_TOKEN_NAME): boolean {
 
-  const token: string = jwt || localStorage.getItem(tokenName);
+  const token: string = localStorage.getItem(tokenName);
 
   const authHelper = new AuthHelper();
 
-  return token != null && !authHelper.isTokenExpired(token);
+  return token != null && !authHelper.isTokenExpired();
 }
 
 export const AUTH_PROVIDERS: Provider[] = [
