@@ -6,14 +6,14 @@ module.exports = function (config) {
         frameworks: ["jasmine"],
         // list of files / patterns to load in the browser
         files: [
-            {pattern: 'angular2-auth.spec.ts', watched: false}
+            {pattern: 'ng2-auth.spec.ts', watched: false}
         ],
 
         // list of files / patterns to exclude
         exclude: [],
 
         preprocessors: {
-            'angular2-auth.spec.ts': [ 'webpack', 'sourcemap']
+            'ng2-auth.spec.ts': [ 'webpack', 'sourcemap']
         },
 
 

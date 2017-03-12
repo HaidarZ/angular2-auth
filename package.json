@@ -1,5 +1,5 @@
 {
-  "name": "angular2-auth",
+  "name": "ng2-auth",
   "version": "0.1.28",
   "description": "Helper library for handling authentication in Angular 2",
   "repository": {
@@ -22,9 +22,9 @@
   "bugs": {
     "url": "https://github.com/HaidarZ/angular2-auth.git/issues"
   },
-  "main": "./dist/angular2-auth.js",
-  "typings": "./angular2-auth.d.ts",
-  "types": "./angular2-auth.d.ts",
+  "main": "./dist/ng2-auth.js",
+  "typings": "./ng2-auth.d.ts",
+  "types": "./ng2-auth.d.ts",
   "homepage": "https://github.com/HaidarZ/angular2-auth.git#readme",
   "devDependencies": {
     "@angular/common": "^2.4.2",

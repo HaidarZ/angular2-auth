@@ -1,7 +1,7 @@
 import "core-js";
-import { AuthConfig, AuthHttp, tokenNotExpired, AuthHelper } from "./angular2-auth";
+import { AuthConfig, AuthHttp, tokenNotExpired, AuthHelper } from "./ng2-auth";
 import { Observable } from "rxjs";
-import { encodeTestToken } from "./angular2-auth-test-helpers";
+import { encodeTestToken } from "./ng2-auth-test-helpers";
 
 describe('AuthConfig', () => {
     'use strict';

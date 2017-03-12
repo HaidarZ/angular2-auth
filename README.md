@@ -1,7 +1,7 @@
-# angular2-auth
-[![Build Status](https://api.travis-ci.org/HaidarZ/angular2-auth.svg?branch=master)](https://travis-ci.org/HaidarZ/angular2-auth)
+# ng2-auth
+[![Build Status](https://api.travis-ci.org/HaidarZ/ng2-auth.svg?branch=master)](https://travis-ci.org/HaidarZ/ng2-auth)
 
-**angular2-auth** is a helper library for working with simple authentication in your Angular 2 applications.
+**ng2-auth** is a helper library for working with simple authentication in your Angular 2 applications.
 
 ##Contents
  - [What is this Library for?](#what-is-this-library-for)
@@ -24,7 +24,7 @@
 
 ## What is this Library for?
 
-**angular2-auth** is a small and unopinionated library that is useful for automatically attaching a token as an `Authorization` header when making HTTP requests from an Angular 2 app.
+**ng2-auth** is a small and unopinionated library that is useful for automatically attaching a token as an `Authorization` header when making HTTP requests from an Angular 2 app.
 
 This library does not have any functionality for (or opinion about) implementing user authentication and retrieving auths to begin with. Those details will vary depending on your setup, but in most cases, you will use a regular HTTP request to authenticate your users and then save their auths in local storage or in a cookie if successful.
 
@@ -40,7 +40,7 @@ This library does not have any functionality for (or opinion about) implementing
 ## Installation
 
 ```bash
-npm install angular2-auth
+npm install ng2-auth
 ```
 
 The library comes with several helpers that are useful in your Angular 2 apps.
@@ -56,7 +56,7 @@ Create a new `auth.module.ts` file with the following code:
 ```ts
 import { NgModule } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
-import { AuthHttp, AuthConfig } from 'angular2-auth';
+import { AuthHttp, AuthConfig } from 'ng2-auth';
 
 function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -74,7 +74,7 @@ function authHttpServiceFactory(http: Http, options: RequestOptions) {
 export class AuthModule {}
 ```
 
-We added a factory function to use as a provider for `AuthHttp`. This will allow you to configure angular2-auth in the `AuthConfig` instance later on.
+We added a factory function to use as a provider for `AuthHttp`. This will allow you to configure ng2-auth in the `AuthConfig` instance later on.
 
 
 ## Sending Authenticated Requests
@@ -82,7 +82,7 @@ We added a factory function to use as a provider for `AuthHttp`. This will allow
 If you wish to only send a auth on a specific HTTP request, you can use the `AuthHttp` class. This class is a wrapper for Angular 2's `Http` and thus supports all the same HTTP methods.
 
 ```ts
-import { AuthHttp } from 'angular2-auth';
+import { AuthHttp } from 'ng2-auth';
 // ...
 class App {
 
@@ -134,7 +134,7 @@ You may customize any of the above options using a factory which returns an `Aut
 ```ts
 import { NgModule } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
-import { AuthHttp, AuthConfig } from 'angular2-auth';
+import { AuthHttp, AuthConfig } from 'ng2-auth';
 
 function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -158,10 +158,10 @@ export class AuthModule {}
 
 ### Configuration for Ionic 2
 
-To configure angular2-auth in Ionic 2 applications, use the factory pattern in your `@NgModule`. Since Ionic 2 provides its own API for accessing local storage, configure the `tokenGetter` to use it.
+To configure ng2-auth in Ionic 2 applications, use the factory pattern in your `@NgModule`. Since Ionic 2 provides its own API for accessing local storage, configure the `tokenGetter` to use it.
 
 ```ts
-import { AuthHttp, AuthConfig } from 'angular2-auth';
+import { AuthHttp, AuthConfig } from 'ng2-auth';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
@@ -196,7 +196,7 @@ To use `tokenNotExpired` with Ionic 2, use the `Storage` class directly in the f
 
 ```ts
 import { Storage } from '@ionic/storage';
-import { tokenNotExpired } from 'angular2-auth';
+import { tokenNotExpired } from 'ng2-auth';
 
 let storage = new Storage();
 
@@ -281,7 +281,7 @@ The `tokenNotExpired` function can be used to check whether a auth exists in loc
 ```ts
 // auth.service.ts
 
-import { tokenNotExpired } from 'angular2-auth';
+import { tokenNotExpired } from 'ng2-auth';
 
 loggedIn() {
   return tokenNotExpired();
