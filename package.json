@@ -47,7 +47,7 @@
     "karma-webpack": "^1.7.0",
     "phantomjs-prebuilt": "^2.1.7",
     "reflect-metadata": "0.1.8",
-    "rxjs": "~5.0.0",
+    "rxjs": "~5.2.0",
     "typescript": ">=2.0.2 <=2.0.10",
     "webpack": "^1.13.0",
     "zone.js": "~0.7.2"
@@ -55,6 +55,6 @@
   "peerDependencies": {
     "@angular/core": "^2.0.0",
     "@angular/http": "^2.0.0",
-    "rxjs": "^5.0.0"
+    "rxjs": "^5.2.0"
   }
 }

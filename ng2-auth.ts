@@ -21,7 +21,7 @@ export interface IAuthConfig {
     noClientCheck: boolean;
     noTokenScheme?: boolean;
     tokenGetter: () => string | Promise<string>;
-    expiryDateGetter: () => string | Promise<string>;
+    expiryDateGetter: () => number | Promise<number>;
     tokenName: string;
     expiryDateName: string;
 }
@@ -32,7 +32,7 @@ export interface IAuthConfigOptional {
     tokenName?: string;
     expiryDateName?: string;
     tokenGetter?: () => string | Promise<string>;
-    expiryDatePicker?: () => string | Promise<string>;
+    expiryDatePicker?: () => number | Promise<number>;
     noJwtError?: boolean;
     noClientCheck?: boolean;
     globalHeaders?: Array<Object>;
@@ -52,7 +52,7 @@ const AuthConfigDefaults: IAuthConfig = {
     tokenName: AuthConfigConsts.DEFAULT_TOKEN_NAME,
     expiryDateName: AuthConfigConsts.DEFAULT_EXPIRY_NAME,
     tokenGetter: () => localStorage.getItem(AuthConfigDefaults.tokenName) as string,
-    expiryDateGetter: () => localStorage.getItem(AuthConfigDefaults.expiryDateName) as string,
+    expiryDateGetter: () => Number(localStorage.getItem(AuthConfigDefaults.expiryDateName)) as number,
     noJwtError: false,
     noClientCheck: false,
     globalHeaders: [],
@@ -83,7 +83,7 @@ export class AuthConfig {
         }
 
         if (config.expiryDateName && !config.expiryDatePicker) {
-            this._config.expiryDateGetter = () => localStorage.getItem(config.expiryDateName) as string;
+            this._config.expiryDateGetter = () => Number(localStorage.getItem(config.expiryDateName)) as number;
         }
     }
 
@@ -105,6 +105,7 @@ export class AuthHttp {
 
     private config: IAuthConfig;
     public tokenStream: Observable<string>;
+    public expiryDateStream: Observable<number>;
 
     constructor(options: AuthConfig, private http: Http, private defOpts?: RequestOptions) {
         this.config = options.getConfig();
@@ -112,6 +113,10 @@ export class AuthHttp {
         this.tokenStream = new Observable<string>((obs: any) => {
             obs.next(this.config.tokenGetter());
         });
+
+        this.expiryDateStream = new Observable<number>((obs: any) => {
+            obs.next(this.config.expiryDateGetter);
+        })
     }
 
     private mergeOptions(providedOpts: RequestOptionsArgs, defaultOpts?: RequestOptions) {
