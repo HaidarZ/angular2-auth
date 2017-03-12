@@ -1,5 +1,7 @@
 # ng2-auth
 [![Build Status](https://api.travis-ci.org/HaidarZ/ng2-auth.svg?branch=master)](https://travis-ci.org/HaidarZ/ng2-auth)
+[![npm](https://img.shields.io/npm/v/ng2-auth.svg)](https://www.npmjs.com/package/ng2-auth)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 **ng2-auth** is a helper library for working with simple authentication in your Angular 2 applications.
 
