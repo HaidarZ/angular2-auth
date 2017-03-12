@@ -345,8 +345,6 @@ Use `npm run dev` to compile and watch for changes.
 
 ## Author
 [Haidar Zeineddine](http://haidarz.me)
-[Auth0](https://auth0.com)
-
 
 ## License
 

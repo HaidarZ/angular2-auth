@@ -2,16 +2,27 @@ node_modules
 npm-debug.log
 typings
 
-Thumbs.db
-.DS_Store
-
 *.js
 !karma.conf.js
 *.map
 *.d.ts
 !custom.d.ts
-.idea/
-*.iml
 *.metadata.json
 *.ngsummary.json
 *.ngfactory.ts
+
+# JetBrains
+.project
+.settings
+.idea
+
+# VS Code
+.vscode/*
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+dist/

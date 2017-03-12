@@ -1,26 +1,12 @@
 import "core-js";
-import {AuthConfig, AuthHttp, tokenNotExpired, AuthHelper} from "./angular2-auth";
-import {Observable} from "rxjs";
-import {encodeTestToken} from "./angular2-auth-test-helpers";
+import { AuthConfig, AuthHttp, tokenNotExpired, AuthHelper } from "./angular2-auth";
+import { Observable } from "rxjs";
+import { encodeTestToken } from "./angular2-auth-test-helpers";
 
-
-
-const expiredToken=encodeTestToken({
-    "exp": 0
-});
-const validToken=encodeTestToken({
-    "exp": 9999999999
-});
-const noExpiryToken=encodeTestToken({
-    "sub": "1234567890",
-    "name": "John Doe",
-    "admin": true
-});
-
-describe('AuthConfig', ()=> {
+describe('AuthConfig', () => {
     'use strict';
 
-    it('should have default values', ()=> {
+    it('should have default values', () => {
         const config = new AuthConfig().getConfig();
         expect(config).toBeDefined();
         expect(config.headerName).toBe("Authorization");
@@ -35,14 +21,14 @@ describe('AuthConfig', ()=> {
         expect(config.tokenGetter()).toBe(token);
     });
 
-    it('should have default values', ()=> {
+    it('should have default values', () => {
         const configExpected = {
             headerName: "Foo",
             headerPrefix: "Bar",
             tokenName: "token",
-            tokenGetter: ()=>"this is a token",
+            tokenGetter: () => "this is a token",
             noJwtError: true,
-            globalHeaders: [{"header": "value"}, {"header2": "value2"}],
+            globalHeaders: [{ "header": "value" }, { "header2": "value2" }],
             noTokenScheme: true
         };
         const config = new AuthConfig(configExpected).getConfig();
@@ -56,130 +42,15 @@ describe('AuthConfig', ()=> {
         expect(config.tokenGetter).toBeDefined();
         expect(config.tokenGetter()).toBe("this is a token");
     });
-    
-    it('should use custom token name in default tokenGetter', ()=> {
-      const configExpected = { tokenName: 'Token' };
-      const token = 'token';
-      const config = new AuthConfig(configExpected).getConfig();
-      localStorage.setItem(configExpected.tokenName, token);
-      expect(config).toBeDefined();
-      expect(config.tokenName).toBe(configExpected.tokenName);
-      expect(config.tokenGetter()).toBe(token);
+
+    it('should use custom token name in default tokenGetter', () => {
+        const configExpected = { tokenName: 'Token' };
+        const token = 'token';
+        const config = new AuthConfig(configExpected).getConfig();
+        localStorage.setItem(configExpected.tokenName, token);
+        expect(config).toBeDefined();
+        expect(config.tokenName).toBe(configExpected.tokenName);
+        expect(config.tokenGetter()).toBe(token);
     });
 
-});
-
-describe('JwtHelper', ()=> {
-    'use strict';
-    let jwtHelper:AuthHelper;
-    beforeEach(()=>{
-        jwtHelper=new AuthHelper();
-    });
-    describe('getTokenExpirationDate',()=>{
-
-    });
-    describe('isTokenExpired',()=>{
-        it('should return false when the token is not expired', ()=> {
-            const actual:boolean=jwtHelper.isTokenExpired(validToken);
-            expect(actual).toBe(false);
-        });
-        it('should return true when the token is expired', ()=> {
-            const actual:boolean=jwtHelper.isTokenExpired(expiredToken);
-            expect(actual).toBe(true);
-        });
-        it('should return false when the token doesn\'t have an expiry date', ()=> {
-            const actual:boolean=jwtHelper.isTokenExpired(noExpiryToken);
-            expect(actual).toBe(false);
-        });
-        // it('should return false when the token is expired, but within the grace period', ()=> {
-        //     console.log("test start");
-        //     // return a date that has expired 5 seconds ago
-        //     jwtHelper.getTokenExpirationDate=(token:string)=>{
-        //         const date=new Date(new Date().valueOf()-5000);
-        //         console.log("token date",date);
-        //         console.log("actual date",new Date());
-        //         return date;
-        //     };
-        //     //token doesn't matter because we mocked getTokenExpirationDate
-        //     const tokenExpired:boolean=jwtHelper.isTokenExpired("");
-        //     expect(tokenExpired).toBe(true,"token should be expired");
-        //     const tokenExpired:boolean=jwtHelper.isTokenExpired("",6);
-        //     expect(tokenExpired).toBe(false,"token should be within the grace period");
-        //     console.log("test end");
-        // });
-        // it('should return true when the token is expired and outside the grace period', ()=> {
-        //     // return a date that has expired 5 seconds ago
-        //     jwtHelper.getTokenExpirationDate=(token:string)=>new Date(new Date().valueOf()-5000);
-        //     //token doesn't matter because we mocked getTokenExpirationDate
-        //     const tokenExpired:boolean=jwtHelper.isTokenExpired("");
-        //     expect(tokenExpired).toBe(false,"token should be expired");
-        //     const tokenExpired:boolean=jwtHelper.isTokenExpired("",3);
-        //     expect(tokenExpired).toBe(true,"token should not be within the grace period");
-        // });
-
-    });
-
-
-});
-
-describe('tokenNotExpired', ()=> {
-    'use strict';
-    it('should use the passed token when not expired', ()=> {
-        const actual:boolean=tokenNotExpired(null,validToken);
-        expect(actual).toBe(true);
-    });
-    it('should use the passed token when expired', ()=> {
-        const actual:boolean=tokenNotExpired(null,expiredToken);
-        expect(actual).toBe(false);
-    });
-    it('should use the passed tokenName when not expired', ()=> {
-        localStorage.setItem("Valid", validToken);
-        const actual:boolean=tokenNotExpired("Valid");
-        expect(actual).toBe(true);
-    });
-    it('should use the passed tokenName when expired', ()=> {
-        localStorage.setItem("Expired", expiredToken);
-        const actual:boolean=tokenNotExpired("Expired");
-        expect(actual).toBe(false);
-    });
-    it('should use the defaults when not expired', ()=> {
-        localStorage.setItem("id_token", validToken);
-        const actual:boolean=tokenNotExpired();
-        expect(actual).toBe(true);
-    });
-    it('should use the defaults when expired', ()=> {
-        localStorage.setItem("id_token", expiredToken);
-        const actual:boolean=tokenNotExpired();
-        expect(actual).toBe(false);
-    });
-
-});
-
-describe("AuthHttp", () => {
-    describe("request", () => {
-        it("handles tokenGetters returning string", () => {
-            let authHttp: AuthHttp = new AuthHttp(new AuthConfig({
-                tokenGetter: () => validToken
-            }), null);
-
-            spyOn(authHttp, "requestWithToken").and.stub();
-
-            authHttp.request(null);
-
-            expect(authHttp["requestWithToken"]).toHaveBeenCalledWith(null, validToken);
-        });
-
-        it("handles tokenGetters returning Promise\<string\>", (done: Function) => {
-            let authHttp: AuthHttp = new AuthHttp(new AuthConfig({
-                tokenGetter: () => Promise.resolve(validToken)
-            }), null);
-
-            spyOn(authHttp, "requestWithToken").and.returnValue(Observable.of(""));
-
-            authHttp.request(null).subscribe(() => {
-                expect(authHttp["requestWithToken"]).toHaveBeenCalledWith(null, validToken);
-                done();
-            });
-        });
-    });
 });
