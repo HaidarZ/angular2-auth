@@ -1,6 +1,6 @@
 {
   "name": "ng2-auth",
-  "version": "0.1.28",
+  "version": "0.1.29",
   "description": "Helper library for handling authentication in Angular 2",
   "repository": {
     "type": "git",
@@ -10,7 +10,7 @@
     "dev": "tsc --watch",
     "test": "karma start",
     "prepublish": "tsc",
-    "ngc":"ngc"
+    "ngc": "ngc"
   },
   "keywords": [
     "angular",
