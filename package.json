@@ -4,7 +4,7 @@
   "description": "Helper library for handling authentication in Angular 2",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HaidarZ/angular2-auth.git"
+    "url": "git+https://github.com/HaidarZ/ng2-auth.git"
   },
   "scripts": {
     "dev": "tsc --watch",
@@ -20,12 +20,12 @@
   "author": "Haidar Zeineddine",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HaidarZ/angular2-auth.git/issues"
+    "url": "https://github.com/HaidarZ/ng2-auth/issues"
   },
   "main": "./dist/ng2-auth.js",
   "typings": "./ng2-auth.d.ts",
   "types": "./ng2-auth.d.ts",
-  "homepage": "https://github.com/HaidarZ/angular2-auth.git#readme",
+  "homepage": "https://github.com/HaidarZ/ng2-auth.git#readme",
   "devDependencies": {
     "@angular/common": "^2.4.2",
     "@angular/compiler": "^2.4.2",
