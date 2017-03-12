@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/HaidarZ/ng2-auth/issues"
   },
-  "main": "./dist/ng2-auth.js",
+  "main": "./dist/index.js",
   "typings": "./ng2-auth.d.ts",
   "types": "./ng2-auth.d.ts",
   "homepage": "https://github.com/HaidarZ/ng2-auth.git#readme",

@@ -12,7 +12,6 @@ describe('AuthConfig', () => {
         expect(config.headerName).toBe("Authorization");
         expect(config.headerPrefix).toBe("Bearer ");
         expect(config.tokenName).toBe("access_token");
-        expect(config.noJwtError).toBe(false);
         expect(config.noTokenScheme).toBe(false);
         expect(config.globalHeaders).toEqual([]);
         expect(config.tokenGetter).toBeDefined();

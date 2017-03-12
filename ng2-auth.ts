@@ -17,8 +17,6 @@ export interface IAuthConfig {
     globalHeaders: Array<Object>;
     headerName: string;
     headerPrefix: string;
-    noJwtError: boolean;
-    noClientCheck: boolean;
     noTokenScheme?: boolean;
     tokenGetter: () => string | Promise<string>;
     expiryDateGetter: () => number | Promise<number>;
@@ -33,8 +31,6 @@ export interface IAuthConfigOptional {
     expiryDateName?: string;
     tokenGetter?: () => string | Promise<string>;
     expiryDatePicker?: () => number | Promise<number>;
-    noJwtError?: boolean;
-    noClientCheck?: boolean;
     globalHeaders?: Array<Object>;
     noTokenScheme?: boolean;
 }
@@ -53,8 +49,6 @@ const AuthConfigDefaults: IAuthConfig = {
     expiryDateName: AuthConfigConsts.DEFAULT_EXPIRY_NAME,
     tokenGetter: () => localStorage.getItem(AuthConfigDefaults.tokenName) as string,
     expiryDateGetter: () => Number(localStorage.getItem(AuthConfigDefaults.expiryDateName)) as number,
-    noJwtError: false,
-    noClientCheck: false,
     globalHeaders: [],
     noTokenScheme: false
 };
@@ -139,12 +133,10 @@ export class AuthHttp {
     }
 
     private requestWithToken(req: Request, token: string): Observable<Response> {
-        if (!this.config.noClientCheck && !tokenNotExpired()) {
-            if (!this.config.noJwtError) {
-                return new Observable<Response>((obs: any) => {
-                    obs.error(new AuthHttpError('No JWT present or has expired'));
-                });
-            }
+        if (!tokenNotExpired()) {
+            return new Observable<Response>((obs: any) => {
+                obs.error(new AuthHttpError('No token present or has expired'));
+            });
         } else {
             req.headers.set(this.config.headerName, this.config.headerPrefix + token);
         }
@@ -234,6 +226,7 @@ export class AuthHelper {
  * Checks for presence of token and that token hasn't expired.
  * For use with the @CanActivate router decorator and NgIf
  */
+
 export function tokenNotExpired(tokenName = AuthConfigConsts.DEFAULT_TOKEN_NAME): boolean {
 
     const token: string = localStorage.getItem(tokenName);
