@@ -1,2 +1,2 @@
-import {AuthHttp, AuthHelper, AuthHttpError} from './ng2-auth';
-export {AuthHttp, AuthHelper, AuthHttpError}
+import {AuthHttp, AuthHelper} from './ng2-auth';
+export {AuthHttp, AuthHelper};
