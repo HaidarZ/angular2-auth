@@ -30,7 +30,7 @@ export interface IAuthConfigOptional {
     tokenName?: string;
     expiryDateName?: string;
     tokenGetter?: () => string | Promise<string>;
-    expiryDatePicker?: () => number | Promise<number>;
+    expiryDateGetter?: () => number | Promise<number>;
     globalHeaders?: Array<Object>;
     noTokenScheme?: boolean;
 }
@@ -76,7 +76,7 @@ export class AuthConfig {
             this._config.tokenGetter = () => localStorage.getItem(config.tokenName) as string;
         }
 
-        if (config.expiryDateName && !config.expiryDatePicker) {
+        if (config.expiryDateName && !config.expiryDateGetter) {
             this._config.expiryDateGetter = () => Number(localStorage.getItem(config.expiryDateName)) as number;
         }
     }
@@ -133,7 +133,8 @@ export class AuthHttp {
     }
 
     private requestWithToken(req: Request, token: string): Observable<Response> {
-        if (!tokenNotExpired()) {
+        //TODO: check if the token is expired
+        if (null == token) {
             return new Observable<Response>((obs: any) => {
                 obs.error(new AuthHttpError('No token present or has expired'));
             });
@@ -167,7 +168,7 @@ export class AuthHttp {
         let req: Request = url as Request;
         let token: string | Promise<string> = this.config.tokenGetter();
         if (token instanceof Promise) {
-            return Observable.fromPromise(token).mergeMap((jwtToken: string) => this.requestWithToken(req, jwtToken));
+            return Observable.fromPromise(token).mergeMap((token: string) => this.requestWithToken(req, token));
         } else {
             return this.requestWithToken(req, token);
         }

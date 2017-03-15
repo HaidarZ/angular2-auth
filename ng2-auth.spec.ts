@@ -26,7 +26,7 @@ describe('AuthConfig', () => {
             headerPrefix: "Bar",
             tokenName: "token",
             tokenGetter: () => "this is a token",
-            expiryDateGetter: () => "1234",
+            expiryDateGetter: () => 1234,
             globalHeaders: [{ "header": "value" }, { "header2": "value2" }],
             noTokenScheme: true
         };
